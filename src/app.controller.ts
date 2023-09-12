@@ -2,6 +2,7 @@ import { Controller, Get } from '@nestjs/common';
 import { AppService } from './app.service';
 import { EventPattern } from '@nestjs/microservices';
 import { FindOneEvent } from './app.event';
+import { CreateTransaction } from './interface/midtrans.interface';
 
 @Controller()
 export class AppController {
@@ -14,6 +15,16 @@ export class AppController {
 
   @EventPattern('hello')
   handleHello(data: FindOneEvent) {
-    this.appService.handleHello(data);
+    return this.appService.handleHello(data);
+  }
+
+  @EventPattern('create_transaction')
+  createTransaction(data: CreateTransaction) {
+    return this.appService.createTransaction(data);
+  }
+
+  @EventPattern('get_status_transaction')
+  getStatusTransaction(orderId: string) {
+    return this.appService.getStatusTransaction(orderId);
   }
 }
