@@ -1,0 +1,16 @@
+version: '3.8'
+services:
+  api: 
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/midtrans
+      - /midtrans/node_modules
+    ports:
+      - ${APP_PORT}:${APP_PORT}
+    expose:
+      - ${APP_PORT}
+    command: npm run start:dev
+    env_file:
+      - .env
